@@ -1,31 +1,28 @@
-from flask import (
-    Flask,
-    request,
-    jsonify,
-    send_file,
-    url_for,
-    render_template,
-    send_from_directory,
-    redirect,
-)
-from flask_cors import CORS
-import subprocess
-import os
-import requests
 import csv
 import io
-import logging
-import time
-import re
 import json
-import traceback
+import logging
+import os
+import re
+import subprocess
 import sys
-from uuid import uuid4
-from functools import partial
-
 import threading
+import time
 from logging.handlers import RotatingFileHandler
 from urllib.parse import quote
+from uuid import uuid4
+
+import requests
+from flask import (
+    Flask,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
+from flask_cors import CORS
 
 INAT_HEADERS = {
     "Accept": "application/json",
@@ -238,7 +235,7 @@ def get_inat_id(obs_input):
         except subprocess.CalledProcessError as e:
             raise ValueError(
                 f"Error converting MO #{obs_id} to iNaturalist: {e.stderr.strip()}"
-            )
+            ) from e
 
     # iNat ID
     return obs_id
@@ -1130,7 +1127,7 @@ def todo():
 
     todos = []
     if os.path.exists(todo_file):
-        with open(todo_file, "r") as f:
+        with open(todo_file) as f:
             todos = [line.strip() for line in f.readlines()]
     return render_template("todo.html", todos=todos)
 
