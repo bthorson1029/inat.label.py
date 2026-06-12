@@ -50,15 +50,21 @@
             line-height: 1.6;
             color: var(--grey-800);
             background-color: var(--grey-100);
-            padding: 0;
+            padding: 0 0 96px;
             margin: 0;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
+        }
+        .container.main-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
 
         header {
@@ -112,13 +118,25 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             padding: 2rem;
-            margin-bottom: 2rem;
+            flex: 4;
+            height: 100%;
+        }
+
+        .card-title-container {
+            display: flex; 
+            gap: 0.5rem; 
+            justify-content: space-between; 
+            align-items: center;
+            padding-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .card-title-container .form-actions {
+            width: 100%;
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
             color: var(--grey-800);
             display: flex;
             align-items: center;
@@ -153,7 +171,7 @@
             font-weight: 500;
             color: var(--grey-600);
             width: 40px;
-            text-align: right;
+            text-align: center;
         }
 
         .obs-input {
@@ -245,8 +263,8 @@
         }
 
         .btn-icon {
-            padding: 0.6rem;
-            border-radius: 50%;
+            padding: 0.5rem;
+            border-radius: 100%;
         }
 
         .actions {
@@ -258,6 +276,252 @@
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
+        }
+
+        .additional-options {
+                margin-top: 0.5rem;
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+        /* Label options (stacked sections) */
+        .lo-card {
+            background: #f7f7f7;
+            border: 1px solid #e3e6e3;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(20, 40, 30, .05);
+            padding: 20px 22px;
+            flex: 1;
+            height: 100%;
+        }
+
+        .lo-drawer-trigger-row {
+            display: none;
+        }
+
+        .lo-drawer-header {
+            display: none;
+        }
+
+        .lo-active-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            margin-left: 0.15rem;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .lo-active-count[hidden] {
+            display: none;
+        }
+
+        .lo-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .lo-head-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lo-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f2b24;
+        }
+
+        .lo-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: #2f7d57;
+            background: #e7f3ec;
+            border: 1px solid #cfe6d8;
+            padding: 2px 7px;
+            border-radius: 999px;
+        }
+
+        .lo-sub {
+            font-size: 12.5px;
+            color: #99a69e;
+        }
+
+        .lo-section {
+            border: 1px solid #e2e9e4;
+            border-radius: 11px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .lo-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .lo-section-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            background: #eef6f1;
+            border-bottom: 1px solid #e0ece5;
+        }
+
+        .lo-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2f9d6d;
+        }
+
+        .lo-section-title {
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: #2f7d57;
+        }
+
+        .lo-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 13px 16px;
+        }
+
+        .lo-row + .lo-row {
+            border-top: 1px solid #eef1ef;
+        }
+
+        .lo-row-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2b24;
+        }
+
+        .lo-row-desc {
+            font-size: 12.5px;
+            color: #79887f;
+            margin-top: 2px;
+        }
+
+        /* Switch toggle (backs a real checkbox) */
+        .opt-toggle {
+            display: inline-flex;
+            align-items: center;
+            margin: 2px 0 0;
+            flex: none;
+            cursor: pointer;
+        }
+
+        .opt-toggle-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .opt-switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+            border-radius: 999px;
+            background: #d2d6d3;
+            transition: background .18s ease;
+        }
+
+        .opt-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .28);
+            transition: transform .18s ease;
+        }
+
+        .opt-toggle-input:checked + .opt-switch {
+            background: #2f9d6d;
+        }
+
+        .opt-toggle-input:checked + .opt-switch .opt-knob {
+            transform: translateX(20px);
+        }
+
+        .opt-toggle-input:focus-visible + .opt-switch {
+            outline: 2px solid #2f9d6d;
+            outline-offset: 2px;
+        }
+
+        /* Mini-labels select */
+        .lo-select {
+            appearance: none;
+            -webkit-appearance: none;
+            font-size: 13px;
+            color: #27332b;
+            padding: 8px 32px 8px 13px;
+            border: 1px solid #d7dcd8;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #fff;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22><path d=%22M2 4l4 4 4-4%22 fill=%22none%22 stroke=%22%236a7a70%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 11px center;
+        }
+
+        /* Field buttons */
+        .lo-fieldbtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #fff;
+            transition: var(--transition);
+        }
+
+        .lo-fieldbtn-add {
+            color: #1f7a4d;
+            border: 1px solid #cfe6d8;
+        }
+
+        .lo-fieldbtn-add:hover {
+            background: #f1f8f4;
+            border-color: #aed7bf;
+        }
+
+        .lo-fieldbtn-remove {
+            color: #7b8a81;
+            border: 1px solid #d7dcd8;
+        }
+
+        .lo-fieldbtn-remove:hover {
+            background: #f6f7f6;
+            border-color: #c6cdc8;
         }
 
         .warning {
@@ -381,6 +645,14 @@
             .container {
                 padding: 0 14px;
             }
+            .card {
+                padding: 0.5rem;
+            }
+
+            /* Hides the clear queue label on mobile */
+            /* .clear-queue-label {
+                display: none;
+            } */
 
             /* ---- Header: stop fighting the grid on mobile ---- */
             header {
@@ -472,6 +744,7 @@
                 flex-direction: column;
             }
 
+
             /* only the main form action buttons go full-width */
             .form-actions .btn {
                 width: 100%;
@@ -536,6 +809,120 @@
             }
         }
 
+        /* Sticky print action bar */
+        .print-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            border-top: 1px solid var(--grey-200);
+            box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.07);
+            padding: 0.8rem 0;
+            z-index: 900;
+        }
+
+        .print-bar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .print-bar-status {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-weight: 600;
+            color: var(--grey-700);
+        }
+
+        .print-bar-status i {
+            color: var(--primary);
+        }
+
+        .print-bar-count-num {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .print-bar-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .print-bar-status {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .print-bar-actions {
+                width: 100%;
+            }
+
+            .print-bar-actions .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        /* Label options drawer (mobile only) */
+        @media screen and (max-width: 768px) {
+            .lo-drawer-trigger-row {
+                display: flex;
+            }
+
+            .lo-card {
+                position: fixed;
+                inset: 0;
+                z-index: 1500;
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 16px 16px;
+                transform: translateX(100%);
+                transition: transform 0.28s ease;
+            }
+
+            .lo-card.open {
+                transform: translateX(0);
+            }
+
+            /* The drawer header replaces the inline panel header on mobile */
+            .lo-head {
+                display: none;
+            }
+
+            .lo-drawer-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                position: sticky;
+                top: 0;
+                margin: 0 -16px 12px;
+                padding: 14px 16px;
+                background: #f7f7f7;
+                border-bottom: 1px solid #e3e6e3;
+                z-index: 1;
+            }
+
+            .lo-drawer-title {
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: #1f2b24;
+            }
+
+            /* Stop the page behind the drawer from scrolling */
+            body.lo-drawer-open {
+                overflow: hidden;
+            }
+        }
+
         /* Modal styles */
         .modal-overlay {
             position: fixed;
@@ -570,6 +957,12 @@
         .modal-overlay[style*="display: flex"] .modal {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        /* The Add Observations modal gets more room on desktop. */
+        #addObsModal .modal {
+            width: min(1040px, 95vw);
+            max-height: 90vh;
         }
 
         .modal-header {
@@ -767,6 +1160,50 @@
         }
 
         /* Add Observations Modal Styles */
+        .segment-label {
+            padding: 0.4rem 0.5rem;
+            border-radius: calc(var(--border-radius) - 2px);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--grey-600);
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        input[type="radio"]:checked + .segment-label {
+            background: #fff;
+            color: var(--primary-dark);
+            box-shadow: var(--box-shadow);
+        }
+
+        input[type="radio"]:focus-visible + .segment-label {
+            outline: 2px solid var(--primary);
+            outline-offset: 1px;
+        }
+        .addobs-autocomplete {
+            position: fixed;
+            z-index: 2100;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            max-height: 260px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid var(--grey-300);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        }
+
+        .addobs-autocomplete li {
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .addobs-autocomplete li:hover,
+        .addobs-autocomplete li.active {
+            background: var(--grey-100);
+        }
         .addobs-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -859,124 +1296,199 @@
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="card">
-                <h2 class="card-title">
-                    <i class="fas fa-search"></i>Observation Lookup
-                    <span class="tooltip-help"><i class="fas fa-info-circle" style="color: var(--grey-200)"></i>
-                        <div class="tooltip-box" role="tooltip">
-                            <div class="tooltip-title">Input formats</div>
-                            <ul class="tooltip-list">
-                                <li><strong>iNaturalist:</strong> just the number (e.g., <code>150291663</code>) or the
-                                    full observation URL</li>
-                                <li><strong>Mushroom Observer:</strong> <code>MO12345</code> or a Mushroom Observer
-                                    observation URL (generates a MO label)</li>
-                                <li><strong>Convert MO → iNat:</strong> <code>motoinat12345</code> or
-                                    <code>moinat12345</code> (generates an iNaturalist label from a MO observation)
-                                </li>
-                            </ul>
-                            <div class="tooltip-note">You can enter multiple values separated by spaces or commas.</div>
-                        </div>
-                    </span>
-                </h2>
-                <form id="observationForm">
-                    <div class="observation-list" id="observationInputs">
-                        <div class="observation-input">
-                            <span class="observation-number">1</span><input type="text" id="obs1" name="observations[]"
-                                class="obs-input obs-id-input" placeholder="Enter observation number(s)" required
-                                autocomplete="off" /><span class="result"></span>
+        <div class="container main-container">
+            <div style="display: flex; flex-direction: column; gap: 2rem; flex: 4; height: 100%;">
+                <div class="card">
+                    <div class="card-title-container">
+                        <h2 class="card-title">
+                            <i class="fas fa-search"></i>Observation Lookup
+                            <span class="tooltip-help"><i class="fas fa-info-circle" style="color: var(--grey-200)"></i>
+                                <div class="tooltip-box" role="tooltip">
+                                    <div class="tooltip-title">Input formats</div>
+                                    <ul class="tooltip-list">
+                                        <li><strong>iNaturalist:</strong> just the number (e.g., <code>150291663</code>) or the
+                                            full observation URL</li>
+                                        <li><strong>Mushroom Observer:</strong> <code>MO12345</code> or a Mushroom Observer
+                                            observation URL (generates a MO label)</li>
+                                        <li><strong>Convert MO → iNat:</strong> <code>motoinat12345</code> or
+                                            <code>moinat12345</code> (generates an iNaturalist label from a MO observation)
+                                        </li>
+                                    </ul>
+                                    <div class="tooltip-note">You can enter multiple values separated by spaces or commas.</div>
+                                </div>
+                            </span>
+                        </h2>
+                        <div class="form-actions">
                             <div class="actions">
-                                <button type="button" class="btn btn-outline btn-icon removeButton">
-                                    <i class="fas fa-times"></i>
+                                <button type="button" id="addObsButton" class="btn btn-outline">
+                                    <i class="fas fa-plus"></i>
+                                    Advanced import options
+                                </button>
+                            </div>
+                            <div class="actions lo-drawer-trigger-row">
+                                <button type="button" id="loDrawerToggle" class="btn btn-outline">
+                                    <i class="fas fa-sliders-h"></i>
+                                    Label options
+                                    <span id="loActiveCount" class="lo-active-count" hidden>0</span>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div id="warningMessage" class="warning" style="display: none">
-                        <i class="fas fa-exclamation-triangle"></i><span id="warningText"></span>
-                    </div>
-                    <div class="form-actions" style="display: flex; flex-direction: column; gap: 1rem">
-                        <div class="actions">
-                            <button type="button" id="printRtfButton" class="btn btn-primary">
-                                <i class="fas fa-tags"></i>Print RTF Labels</button><button type="button"
-                                id="printPdfButton" class="btn btn-secondary">
-                                <i class="fas fa-file-pdf"></i>Print PDF Labels</button><button type="button"
-                                id="addObsButton" class="btn btn-outline">
-                                <i class="fas fa-plus"></i>Add observations by date / username
+                    <form id="observationForm">
+                        <div class="observation-list" id="observationInputs">
+                            <div class="observation-input">
+                                <span class="observation-number">1</span><input type="text" id="obs1" name="observations[]"
+                                    class="obs-input obs-id-input" placeholder="Enter observation number(s)" required
+                                    autocomplete="off" /><span class="result"></span>
+                                <div class="actions">
+                                    <button type="button" class="btn btn-outline btn-icon removeButton">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="warningMessage" class="warning" style="display: none">
+                            <i class="fas fa-exclamation-triangle"></i><span id="warningText"></span>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: flex-end; padding-top: 1rem;">
+                            <button type="button" id="clearQueueButton" class="btn btn-outline btn-sm" style="color: rgb(177, 5, 5);">
+                                <i class="fas fa-trash"></i><span class="clear-queue-label">Clear Queue</span>
                             </button>
                         </div>
-                        <div style="
-                  margin-top: 0.5rem;
-                  display: flex;
-                  gap: 1rem;
-                  flex-wrap: wrap;
-                  align-items: center;
-                ">
-                            <label><input type="checkbox" id="omitQrCodes" />Omit QR Codes </label><label
-                                style="display: inline-flex; align-items: center; gap: 0.35rem;">Mini-labels:
-                                <select id="minilabelSize" name="minilabel_size"
-                                    style="padding: 0.25rem 0.4rem; border: 1px solid var(--grey-300); border-radius: var(--border-radius); font-size: 0.9rem; background: white; cursor: pointer;">
-                                    <option value="">Off</option>
-                                    <option value="1">Size 1 (smallest)</option>
-                                    <option value="2">Size 2</option>
-                                    <option value="3">Size 3</option>
-                                    <option value="4">Size 4</option>
-                                    <option value="5">Size 5</option>
-                                    <option value="6">Size 6</option>
-                                    <option value="7">Size 7</option>
-                                    <option value="8">Size 8</option>
-                                    <option value="9">Size 9</option>
-                                    <option value="10">Size 10 (largest)</option>
-                                </select>
-                            </label><label><input type="checkbox" name="common_names" id="common_names" />Include common
-                                names </label><label><input type="checkbox" name="omit_notes" id="omit_notes" />Omit
-                                Notes
-                            </label>
-                        </div>
-                        <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem">
-                            <button type="button" id="editFieldsButton" class="btn btn-outline btn-sm">
-                                <i class="fas fa-plus"></i>Add Fields</button><button type="button"
-                                id="customFieldsButton" class="btn btn-outline btn-sm">
-                                <i class="fas fa-minus"></i>Remove Fields
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="help-card">
-                <h3 class="help-title">
-                    <i class="fas fa-info-circle"></i>Quick Help
-                </h3>
-                <p class="help-text">
-                    Enter iNaturalist or Mushroom Observer observation numbers, URLs, or
-                    a combination of both to look up species information for your
-                    labels. Add multiple observations as needed - often 8 labels fit on
-                    a page. Results appear when you click away from the input or press
-                    Enter.
-                </p>
-                <p class="help-text" style="margin-top: 0.5rem">Tips:</p>
-                <ul style="margin-top: 0.5rem; padding-left: 1.2rem">
-                    <li>
-                        <strong>iNaturalist:</strong> Just the number (e.g.,
-                        <code>150291663</code>) or the full observation URL.
-                    </li>
-                    <li>
-                        <strong>Mushroom Observer:</strong> Use
-                        <code>MO12345</code> (case-insensitive) or a Mushroom Observer
-                        observation URL to generate a MO label.
-                    </li>
-                    <li>
-                        <strong>Convert MO → iNat:</strong> Use
-                        <code>motoinat12345</code> or <code>moinat12345</code> to convert
-                        the MO observation and generate an iNaturalist label.
-                    </li>
-                </ul>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap">
-                    <button type="button" id="downloadCsvButton" class="btn btn-secondary">
-                        <i class="fas fa-file-csv"></i>Download CSV</button><a href="/labels/help"
-                        class="btn btn-accent"><i class="fas fa-book"></i>Full Help
-                    </a>
+                    </form>
                 </div>
+            
+                <div class="help-card">
+                    <h3 class="help-title">
+                        <i class="fas fa-info-circle"></i>Quick Help
+                    </h3>
+                    <p class="help-text">
+                        Enter iNaturalist or Mushroom Observer observation numbers, URLs, or
+                        a combination of both to look up species information for your
+                        labels. Add multiple observations as needed - often 8 labels fit on
+                        a page. Results appear when you click away from the input or press
+                        Enter.
+                    </p>
+                    <p class="help-text" style="margin-top: 0.5rem">Tips:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.2rem">
+                        <li>
+                            <strong>iNaturalist:</strong> Just the number (e.g.,
+                            <code>150291663</code>) or the full observation URL.
+                        </li>
+                        <li>
+                            <strong>Mushroom Observer:</strong> Use
+                            <code>MO12345</code> (case-insensitive) or a Mushroom Observer
+                            observation URL to generate a MO label.
+                        </li>
+                        <li>
+                            <strong>Convert MO → iNat:</strong> Use
+                            <code>motoinat12345</code> or <code>moinat12345</code> to convert
+                            the MO observation and generate an iNaturalist label.
+                        </li>
+                    </ul>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap">
+                        <button type="button" id="downloadCsvButton" class="btn btn-secondary">
+                            <i class="fas fa-file-csv"></i>Download CSV</button><a href="/labels/help" class="btn btn-accent"><i
+                                class="fas fa-book"></i>Full Help
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="lo-card">
+                            <div class="lo-drawer-header">
+                                <button type="button" id="loDrawerClose" class="btn btn-outline btn-icon" aria-label="Back">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <span class="lo-drawer-title">Label options</span>
+                            </div>
+                            <div class="lo-head">
+                                <div class="lo-head-left">
+                                    <span class="lo-title">Label options</span>
+                                    <span class="lo-badge">Updated</span>
+                                </div>
+                                <span class="lo-sub">Applies to every label in the queue</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="lo-section">
+                                <div class="lo-section-head">
+                                    <span class="lo-section-title">Content</span>
+                                </div>
+                                <div class="lo-row">
+                                    <div>
+                                        <div class="lo-row-label">Common names</div>
+                                        <div class="lo-row-desc">Print the vernacular name beneath the scientific name.</div>
+                                    </div>
+                                    <label class="opt-toggle">
+                                        <input type="checkbox" name="common_names" id="common_names" class="opt-toggle-input" />
+                                        <span class="opt-switch"><span class="opt-knob"></span></span>
+                                    </label>
+                                </div>
+                                <div class="lo-row">
+                                    <div>
+                                        <div class="lo-row-label">Omit notes</div>
+                                        <div class="lo-row-desc">Hide observation notes from the printed label.</div>
+                                    </div>
+                                    <label class="opt-toggle">
+                                        <input type="checkbox" name="omit_notes" id="omit_notes" class="opt-toggle-input" />
+                                        <span class="opt-switch"><span class="opt-knob"></span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Format -->
+                            <div class="lo-section">
+                                <div class="lo-section-head">
+                                    <span class="lo-section-title">Format</span>
+                                </div>
+                                <div class="lo-row">
+                                    <div>
+                                        <div class="lo-row-label">Omit QR codes</div>
+                                        <div class="lo-row-desc">Leave the scannable QR code off the label.</div>
+                                    </div>
+                                    <label class="opt-toggle">
+                                        <input type="checkbox" id="omitQrCodes" class="opt-toggle-input" />
+                                        <span class="opt-switch"><span class="opt-knob"></span></span>
+                                    </label>
+                                </div>
+                                <div class="lo-row" style="display: flex; flex-wrap: wrap;">
+                                    <div>
+                                        <div class="lo-row-label">Mini-labels</div>
+                                        <div class="lo-row-desc">Compact labels that fit more per page.</div>
+                                    </div>
+                                    <select id="minilabelSize" name="minilabel_size" class="lo-select" style="width: 100%;">
+                                        <option value="">Off</option>
+                                        <option value="1">Size 1 (smallest)</option>
+                                        <option value="2">Size 2</option>
+                                        <option value="3">Size 3</option>
+                                        <option value="4">Size 4</option>
+                                        <option value="5">Size 5</option>
+                                        <option value="6">Size 6</option>
+                                        <option value="7">Size 7</option>
+                                        <option value="8">Size 8</option>
+                                        <option value="9">Size 9</option>
+                                        <option value="10">Size 10 (largest)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Custom fields -->
+                            <div class="lo-section">
+                                <div class="lo-section-head">
+                                    <span class="lo-section-title">Custom fields</span>
+                                </div>
+                                <div class="lo-row" style="align-items: center; flex-wrap: wrap;">
+                                    <div class="lo-row-desc" style="max-width: 360px; margin-top: 0;">Add or remove iNaturalist observation fields shown on each label.</div>
+                                    <div style="display: flex; gap: 9px; flex-wrap: wrap;">
+                                        <button type="button" id="editFieldsButton" class="lo-fieldbtn lo-fieldbtn-add">
+                                            <span style="font-size: 15px; line-height: 1;">+</span> Add fields
+                                        </button>
+                                        <button type="button" id="customFieldsButton" class="lo-fieldbtn lo-fieldbtn-remove">
+                                            <span style="font-size: 15px; line-height: 1;">&minus;</span> Remove fields
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
             </div>
         </div>
     </main>
@@ -1002,6 +1514,25 @@
             </p>
         </div>
     </footer>
+    <!-- Sticky print action bar -->
+    <div id="printBar" class="print-bar">
+        <div class="container print-bar-inner">
+            <div class="print-bar-status">
+                <i class="fas fa-tags"></i>
+                <span id="printBarCount">No labels in the queue yet</span>
+            </div>
+            <div class="print-bar-actions">
+                <button type="button" id="printRtfButton" class="btn btn-primary">
+                    <i class="fas fa-tags"></i>
+                    Print RTF Labels
+                </button>
+                <button type="button" id="printPdfButton" class="btn btn-secondary">
+                    <i class="fas fa-file-pdf"></i>
+                    Print PDF Labels
+                </button>
+            </div>
+        </div>
+    </div>
     <div id="toast">
         <i class="fas fa-check-circle"></i><span id="toastMessage"></span>
     </div>
@@ -1035,10 +1566,23 @@
             </div>
             <div class="modal-body">
                 <div class="addobs-grid">
-                    <!-- Date Range Section -->
+                    <!-- Date Filter Section -->
                     <div class="addobs-section">
                         <div class="addobs-section-title">
-                            <i class="fas fa-calendar-alt" style="color: var(--primary)"></i>Date Range
+                            <i class="fas fa-calendar-alt" style="color: var(--primary)"></i>Date Filter
+                        </div>
+                        <div class="field-group">
+                            <div style="display: flex; background: var(--grey-200); border-radius: var(--border-radius); padding: 0.25rem; margin-bottom: 0.25rem;">
+                                <label style="flex: 1; text-align: center; cursor: pointer; position: relative;">
+                                    <input type="radio" name="addObsDateMode" value="observed" checked style="opacity: 0; position: absolute; width: 0; height: 0; margin: 0;">
+                                    <div class="segment-label">Observed</div>
+                                </label>
+                                <label style="flex: 1; text-align: center; cursor: pointer; position: relative;">
+                                    <input type="radio" name="addObsDateMode" value="created" style="opacity: 0; position: absolute; width: 0; height: 0; margin: 0;">
+                                    <div class="segment-label">Created</div>
+                                </label>
+                            </div>
+                            <div id="addObsDateModeHelper" style="font-size: 0.75rem; color: var(--grey-500); margin-bottom: 0.5rem;">Filtering by observation date</div>
                         </div>
                         <div class="field-group">
                             <label for="addObsStartDate" class="field-label">Start Date</label><input type="date"
@@ -1078,6 +1622,16 @@
                         <div class="field-group">
                             <label for="addObsTaxon" class="field-label">Taxon (name or ID)</label><input type="text"
                                 id="addObsTaxon" class="field-input" placeholder="e.g., Fungi or 47170" />
+                        </div>
+                        <div class="field-group" style="position: relative;">
+                            <label for="addObsField" class="field-label">Print by Observation Field
+                                <span style="font-weight:400; color:var(--grey-600);">(optional)</span></label>
+                            <input type="text" id="addObsField" class="field-input" autocomplete="off"
+                                placeholder="e.g., Personal voucher number" />
+                            <input type="hidden" id="addObsFieldSelected" />
+                            <ul id="addObsFieldResults" class="addobs-autocomplete" hidden></ul>
+                            <small style="color:var(--grey-600);">Only include observations where this field is
+                                filled in. Any non-empty value qualifies.</small>
                         </div>
                         <button type="button" id="addObsPreview" class="btn btn-secondary"
                             style="width: 100%; margin-top: auto">
@@ -1160,6 +1714,36 @@
             </div>
         </div>
     </div>
+    <!-- Print Confirmation Modal -->
+    <div id="printConfirmModal" class="modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="printConfirmTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="printConfirmTitle">Confirm Printing</div>
+                <button id="printConfirmCloseX" class="btn btn-outline btn-icon" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="printConfirmCount" style="margin-bottom: 1rem; font-size: 1rem;"></p>
+                <div id="printConfirmWarning" class="warning" style="display: none; margin-bottom: 1rem;">
+                    <i class="fas fa-exclamation-triangle"></i><span id="printConfirmWarningText"></span>
+                </div>
+                <div
+                    style="font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grey-600); margin-bottom: 0.4rem;">
+                    Label options
+                </div>
+                <ul id="printConfirmOptions"
+                    style="margin: 0; padding-left: 1.2rem; font-size: 0.95rem; color: var(--grey-800);"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="printConfirmCancel" class="btn btn-outline">
+                    Cancel</button><button type="button" id="printConfirmGo" class="btn btn-primary">
+                    Print
+                </button>
+            </div>
+        </div>
+    </div>
     <script>
         window.__labels_js_ran = (window.__labels_js_ran || 0) + 1;
 
@@ -1231,6 +1815,45 @@
                 warningDiv.show();
             } else {
                 warningDiv.hide();
+            }
+
+            updateLabelCount();
+        }
+
+        // Update the sticky print bar's "labels ready to print" counter.
+        function updateLabelCount() {
+            const total = countTotalObservations();
+            const el = $("#printBarCount");
+            if (!el.length) return;
+
+            if (total === 0) {
+                el.text("No labels in the queue yet");
+            } else {
+                el.html(
+                    '<span class="print-bar-count-num">' +
+                        total +
+                        "</span> " +
+                        (total === 1 ? "label" : "labels") +
+                        " ready to print",
+                );
+            }
+        }
+
+        // Count Label-options that differ from their defaults, for the drawer
+        // trigger badge. Defaults: all toggles off, mini-labels off, no custom fields.
+        function updateActiveOptionCount() {
+            let n = 0;
+            if ($("#common_names").is(":checked")) n++;
+            if ($("#omit_notes").is(":checked")) n++;
+            if ($("#omitQrCodes").is(":checked")) n++;
+            if ($("#minilabelSize").val()) n++;
+            n += customFields.length;
+
+            const el = $("#loActiveCount");
+            if (n > 0) {
+                el.text(n).prop("hidden", false);
+            } else {
+                el.prop("hidden", true);
             }
         }
 
@@ -1762,6 +2385,11 @@
                 // put this id in the row
                 $empty.val(obsData.id);
 
+                // Store the full observation (including ofvs) so the "Add Fields"
+                // modal can list this observation's fields. Mirrors the shape that
+                // lookupObservation() stores from /labels/lookup_batch.
+                allObservationData[$empty.attr("id")] = [obsData];
+
                 // Render the result directly from cached data
                 const resultSpan = $empty.siblings(".result");
                 const resultItem = renderObservationResult(
@@ -1785,21 +2413,24 @@
             format,
             downloadName,
             successMsg,
+            skipChecks,
         ) {
             const totalObservations = countTotalObservations();
 
-            if (totalObservations === 0) {
-                showToast("Please enter at least one observation number", false);
-                return;
-            }
+            if (!skipChecks) {
+                if (totalObservations === 0) {
+                    showToast("Please enter at least one observation number", false);
+                    return;
+                }
 
-            if (
-                totalObservations > maxObservations &&
-                !confirm(
-                    `Warning: You are attempting to print ${totalObservations} labels. This may cause a timeout. Do you want to continue?`,
-                )
-            ) {
-                return;
+                if (
+                    totalObservations > maxObservations &&
+                    !confirm(
+                        `Warning: You are attempting to print ${totalObservations} labels. This may cause a timeout. Do you want to continue?`,
+                    )
+                ) {
+                    return;
+                }
             }
 
             const formData = collectObservationsFormData();
@@ -2026,21 +2657,134 @@
         }
 
         $("#printRtfButton").click(function () {
-            handlePrintStream(
-                $(this),
-                "rtf",
-                "labels.rtf",
-                "RTF labels downloaded successfully!",
-            );
+            openPrintConfirm("rtf");
         });
 
         $("#printPdfButton").click(function () {
-            handlePrintStream(
-                $(this),
-                "pdf",
-                "labels.pdf",
-                "PDF labels downloaded successfully!",
+            openPrintConfirm("pdf");
+        });
+
+        // Confirmation step before a print job kicks off. Surfaces the count,
+        // format, and active label options (which aren't visible from the print
+        // bar), then hands off to handlePrintStream on confirm.
+        let pendingPrintFormat = null;
+
+        function openPrintConfirm(format) {
+            const total = countTotalObservations();
+            if (total === 0) {
+                showToast("Please enter at least one observation number", false);
+                return;
+            }
+            pendingPrintFormat = format;
+            renderPrintConfirm(format, total);
+            $("#printConfirmModal").css("display", "flex");
+            setTimeout(() => $("#printConfirmGo").focus(), 50);
+        }
+
+        function renderPrintConfirm(format, total) {
+            const fmtLabel = format === "rtf" ? "RTF" : "PDF";
+            $("#printConfirmCount").html(
+                '<span class="print-bar-count-num">' +
+                    total +
+                    "</span> " +
+                    (total === 1 ? "label" : "labels") +
+                    " will be generated as <strong>" +
+                    fmtLabel +
+                    "</strong>.",
             );
+
+            // Over-limit notice lives in the modal now (replaces the old confirm()).
+            if (total > maxObservations) {
+                $("#printConfirmWarningText").text(
+                    "That is a large batch and may time out. Consider splitting it into smaller jobs.",
+                );
+                $("#printConfirmWarning").show();
+            } else {
+                $("#printConfirmWarning").hide();
+            }
+
+            const opts = [];
+            if ($("#common_names").is(":checked")) opts.push("Common names");
+            if ($("#omit_notes").is(":checked")) opts.push("Omit notes");
+            if ($("#omitQrCodes").is(":checked")) opts.push("Omit QR codes");
+            const ms = $("#minilabelSize").val();
+            if (ms) {
+                opts.push(
+                    "Mini-labels: " + $("#minilabelSize option:selected").text(),
+                );
+            }
+            customFields.forEach((f) => {
+                const sign = f.charAt(0);
+                if (sign === "+") opts.push("Add field: " + f.slice(1));
+                else if (sign === "-") opts.push("Remove field: " + f.slice(1));
+            });
+
+            const $list = $("#printConfirmOptions").empty();
+            if (opts.length === 0) {
+                $list.html(
+                    '<li style="color: var(--grey-600);">Default label options</li>',
+                );
+            } else {
+                opts.forEach((o) => $("<li></li>").text(o).appendTo($list));
+            }
+
+            const $go = $("#printConfirmGo");
+            if (format === "rtf") {
+                $go
+                    .removeClass("btn-secondary")
+                    .addClass("btn-primary")
+                    .html('<i class="fas fa-tags"></i> Print RTF Labels');
+            } else {
+                $go
+                    .removeClass("btn-primary")
+                    .addClass("btn-secondary")
+                    .html('<i class="fas fa-file-pdf"></i> Print PDF Labels');
+            }
+        }
+
+        function closePrintConfirm() {
+            $("#printConfirmModal").hide();
+            pendingPrintFormat = null;
+        }
+
+        $("#printConfirmGo").on("click", function () {
+            const format = pendingPrintFormat;
+            $("#printConfirmModal").hide();
+            pendingPrintFormat = null;
+            if (format === "rtf") {
+                handlePrintStream(
+                    $("#printRtfButton"),
+                    "rtf",
+                    "labels.rtf",
+                    "RTF labels downloaded successfully!",
+                    true,
+                );
+            } else if (format === "pdf") {
+                handlePrintStream(
+                    $("#printPdfButton"),
+                    "pdf",
+                    "labels.pdf",
+                    "PDF labels downloaded successfully!",
+                    true,
+                );
+            }
+        });
+
+        $("#printConfirmCloseX, #printConfirmCancel").on(
+            "click",
+            closePrintConfirm,
+        );
+
+        // Backdrop click closes the confirmation modal
+        $("#printConfirmModal").on("click", function (e) {
+            if (e.target === this) closePrintConfirm();
+        });
+
+        // Esc closes the confirmation modal
+        $(document).on("keydown", function (e) {
+            if (e.key === "Escape" && $("#printConfirmModal").is(":visible")) {
+                closePrintConfirm();
+            }
         });
 
         // Add Observations modal handlers
@@ -2055,6 +2799,11 @@
             $("#addObsUser").val("");
             setUserStatus("none");
             $("#addObsTaxon").val("Fungi");
+            $("#addObsField").val("");
+            $("#addObsFieldSelected").val("");
+            $("#addObsFieldResults").hide().empty();
+            $("input[name='addObsDateMode'][value='observed']").prop("checked", true);
+            updateDateModeHelper();
             $("#addObsModal").css("display", "flex");
 
             // Auto-focus username after modal opens
@@ -2117,6 +2866,99 @@
             setQuickDateRange(365);
         });
 
+        // Date-mode helper text (Observed vs Created)
+        function updateDateModeHelper() {
+            const mode = $("input[name='addObsDateMode']:checked").val();
+            $("#addObsDateModeHelper").text(
+                mode === "created"
+                    ? "Filtering by date added to iNaturalist"
+                    : "Filtering by observation date",
+            );
+        }
+        $("input[name='addObsDateMode']").on("change", updateDateModeHelper);
+
+        // Observation-field autocomplete
+        let obsFieldDebounce = null;
+        $("#addObsField").on("input", function () {
+            // Typing invalidates any prior selection; the raw text is still
+            // usable as a plain-text fallback at Preview time.
+            $("#addObsFieldSelected").val("");
+            const q = $(this).val().trim();
+            clearTimeout(obsFieldDebounce);
+            if (q.length < 2) {
+                $("#addObsFieldResults").hide().empty();
+                return;
+            }
+            obsFieldDebounce = setTimeout(async () => {
+                try {
+                    const res = await fetch(
+                        "/labels/observation_fields?q=" + encodeURIComponent(q),
+                    );
+                    const fields = await res.json();
+                    const $list = $("#addObsFieldResults").empty();
+                    if (!Array.isArray(fields) || fields.length === 0) {
+                        $list.hide();
+                        return;
+                    }
+                    fields.slice(0, 12).forEach((f) => {
+                        $("<li></li>")
+                            .text(f.name)
+                            .on("click", function () {
+                                $("#addObsField").val(f.name);
+                                $("#addObsFieldSelected").val(f.name);
+                                $list.hide().empty();
+                            })
+                            .appendTo($list);
+                    });
+                    $list.show();
+                    positionObsFieldDropdown();
+                } catch (e) {
+                    $("#addObsFieldResults").hide().empty();
+                }
+            }, 250);
+        });
+
+        // Float the observation-field autocomplete as a fixed overlay anchored
+        // to the input. Rendered on <body> so it escapes the modal body's
+        // overflow clip and the modal's transform (which would otherwise capture
+        // position:fixed). Opens upward when there isn't room below.
+        function positionObsFieldDropdown() {
+            const input = document.getElementById("addObsField");
+            const list = document.getElementById("addObsFieldResults");
+            if (!input || !list) return;
+            if ($(list).is(":hidden")) return;
+            if (list.parentNode !== document.body) document.body.appendChild(list);
+
+            const r = input.getBoundingClientRect();
+            const gap = 4;
+            const cap = 260;
+            const spaceBelow = window.innerHeight - r.bottom - 8;
+            const spaceAbove = r.top - 8;
+
+            list.style.left = r.left + "px";
+            list.style.width = r.width + "px";
+
+            if (spaceBelow < 150 && spaceAbove > spaceBelow) {
+                const h = Math.min(cap, spaceAbove);
+                list.style.maxHeight = h + "px";
+                list.style.top = r.top - h - gap + "px";
+            } else {
+                list.style.maxHeight = Math.min(cap, spaceBelow) + "px";
+                list.style.top = r.bottom + gap + "px";
+            }
+        }
+
+        // Keep the overlay glued to the input as the viewport or modal scrolls.
+        $(window).on("resize scroll", positionObsFieldDropdown);
+        $("#addObsModal .modal-body").on("scroll", positionObsFieldDropdown);
+
+        // Hide the dropdown when clicking elsewhere
+        $(document).on("click", function (e) {
+            if (!$(e.target).closest("#addObsField, #addObsFieldResults").length) {
+                $("#addObsFieldResults").hide();
+            }
+        });
+
         // Preview Logic
         let lastPreviewIds = [];
         let isPreviewing = false;
@@ -2159,6 +3001,15 @@
             fd.append("d2", endDate);
             fd.append("username", username);
             fd.append("taxon", taxon);
+            fd.append(
+                "date_mode",
+                $("input[name='addObsDateMode']:checked").val() || "observed",
+            );
+            // Prefer the clicked selection; fall back to raw typed text so the
+            // plain-text path works even without choosing from the dropdown.
+            const obsField =
+                $("#addObsFieldSelected").val().trim() || $("#addObsField").val().trim();
+            if (obsField) fd.append("obs_field", obsField);
 
             try {
                 const response = await fetch("/labels/find_observations", {
@@ -2189,8 +3040,13 @@
                 }
 
                 if (items.length === 0) {
+                    const noneMsg = data.obs_field
+                        ? 'No observations found where "' +
+                          escapeHtml(data.obs_field) +
+                          '" is filled in. Check the field name or broaden your date/search filters.'
+                        : "No observations found.";
                     $("#addObsResults").html(
-                        '<div style="padding:1rem;">No observations found.</div>',
+                        '<div style="padding:1rem;">' + noneMsg + "</div>",
                     );
                     return; // Keep Add disabled
                 }
@@ -2207,7 +3063,14 @@
 
                 const header = `
                                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-                                        <div style="font-size:0.95rem; font-weight:600;">Found ${lastPreviewIds.length} observations</div>
+                                        <div style="font-size:0.95rem; font-weight:600;">${
+                                            data.obs_field
+                                                ? (data.total_in_scope || lastPreviewIds.length) +
+                                                  " in scope &middot; " +
+                                                  lastPreviewIds.length +
+                                                  ' have "' + escapeHtml(data.obs_field) + '"'
+                                                : "Found " + lastPreviewIds.length + " observations"
+                                        }</div>
                                         <div>
                                             <label style="user-select:none; cursor:pointer;">
                                                 <input type="checkbox" id="addObsSelectAll" checked> Select all
@@ -2291,6 +3154,59 @@
             } else {
                 input.find(".obs-id-input").val("");
                 input.find(".result").empty();
+                updateWarningMessage();
+            }
+        });
+
+        // Clear the entire observation queue back to a single empty row
+        function clearObservationQueue() {
+            const hasData =
+                $(".obs-id-input").filter(function () {
+                    return $(this).val().trim() !== "";
+                }).length > 0;
+            if (hasData && !confirm("Clear all observations from the queue?")) {
+                return;
+            }
+            // Drop all stored observation data
+            for (const k in allObservationData) {
+                delete allObservationData[k];
+            }
+            // Remove all rows except the first, then reset that row
+            $(".observation-input").not(":first").remove();
+            const first = $(".observation-input").first();
+            first.find(".obs-id-input").val("");
+            first.find(".result").empty();
+            updateObservationNumbers();
+            updateWarningMessage();
+        }
+
+        $("#clearQueueButton").on("click", clearObservationQueue);
+
+        // Label options drawer (mobile). Re-positions the existing .lo-card as a
+        // full-screen panel; all toggles/handlers inside it are untouched.
+        function openLoDrawer() {
+            $(".lo-card").addClass("open");
+            $("body").addClass("lo-drawer-open");
+        }
+
+        function closeLoDrawer() {
+            $(".lo-card").removeClass("open");
+            $("body").removeClass("lo-drawer-open");
+        }
+
+        $("#loDrawerToggle").on("click", openLoDrawer);
+        $("#loDrawerClose").on("click", closeLoDrawer);
+
+        // Keep the trigger badge in sync as toggles/select change.
+        $("#common_names, #omit_notes, #omitQrCodes, #minilabelSize").on(
+            "change",
+            updateActiveOptionCount,
+        );
+
+        // Esc closes the drawer, but only when no modal is open above it.
+        $(document).on("keydown", function (e) {
+            if (e.key === "Escape" && !$(".modal-overlay:visible").length) {
+                closeLoDrawer();
             }
         });
 
@@ -2471,9 +3387,12 @@
             customFields = [];
             addFields.forEach((field) => customFields.push("+" + field));
             removeFields.forEach((field) => customFields.push("-" + field));
+            updateActiveOptionCount();
         }
 
         addObservationField();
+        updateLabelCount();
+        updateActiveOptionCount();
       });
     </script>
 </body>

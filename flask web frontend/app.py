@@ -25,6 +25,7 @@ from functools import partial
 
 import threading
 from logging.handlers import RotatingFileHandler
+from urllib.parse import quote
 
 INAT_HEADERS = {
     "Accept": "application/json",
@@ -873,6 +874,70 @@ def print_stream():
     )
 
 
+# ---------------------------------------------------------------------------
+# Print by Observation Field: helpers
+# ---------------------------------------------------------------------------
+def field_present_query(field_name):
+    """Return 'field:<encoded name>=' meaning the field is present with any value.
+
+    iNaturalist's node API accepts the same field:NAME= syntax as the Explore
+    page. An empty value after '=' matches any non-empty value, which is exactly
+    the 'this field is filled in' semantics. The 'field:' prefix and its colon
+    are left literal; only the field name is percent-encoded (spaces -> %20,
+    '?' -> %3F, etc.) to match the format iNat expects.
+    """
+    return "field:" + quote(field_name.strip(), safe="") + "="
+
+
+def ofv_is_populated(observation, selected_field_name):
+    """True if observation has the named observation field with a non-empty value.
+
+    Belt-and-suspenders check over an already-server-filtered result set. Only
+    meaningful when the observations query requested fields=ofvs; otherwise
+    'ofvs' is absent and this returns False, so its use is guarded on whether a
+    field filter is active.
+    """
+    target = (selected_field_name or "").strip().lower()
+    for ofv in observation.get("ofvs", []) or []:
+        if (ofv.get("name") or "").strip().lower() == target:
+            value = ofv.get("value")
+            return value is not None and str(value).strip() != ""
+    return False
+
+
+@app.route("/labels/observation_fields")
+def observation_fields_autocomplete():
+    """Proxy iNaturalist's observation-field search for the modal autocomplete.
+
+    The v1 node API has no observation_fields search endpoint; the classic
+    Rails endpoint at www.inaturalist.org powers the website's own autocomplete
+    and returns a JSON array of {id, name, datatype, values_count, ...}.
+    """
+    q = (request.args.get("q") or "").strip()
+    if len(q) < 2:
+        return jsonify([])
+    try:
+        resp = inat_api_get(
+            "https://www.inaturalist.org/observation_fields.json",
+            params={"q": q},
+            timeout=15,
+        )
+        data = resp.json()
+    except (requests.RequestException, ValueError):
+        api_error_logger.warning("Observation field search failed", exc_info=True)
+        return jsonify([])
+    if not isinstance(data, list):
+        return jsonify([])
+    data.sort(key=lambda f: f.get("values_count", 0) or 0, reverse=True)
+    return jsonify(
+        [
+            {"id": f.get("id"), "name": f.get("name"), "datatype": f.get("datatype")}
+            for f in data
+            if f.get("name")
+        ]
+    )
+
+
 @app.route("/labels/find_observations", methods=["POST"])
 def find_observations():
     """Find iNaturalist observation IDs by date range, username, and taxon (including descendants)."""
@@ -880,6 +945,10 @@ def find_observations():
     d2_str = (request.form.get("d2") or "").strip()
     username = (request.form.get("username") or "").strip().replace(" ", "_")
     taxon_input = (request.form.get("taxon") or "").strip()
+    obs_field = (request.form.get("obs_field") or "").strip()
+    date_mode = (request.form.get("date_mode") or "observed").strip().lower()
+    if date_mode not in ("observed", "created"):
+        date_mode = "observed"
 
     if not d1_str or not d2_str or not username or not taxon_input:
         missing_fields = []
@@ -924,28 +993,42 @@ def find_observations():
 
     # Query observations
     found = []
+    total_in_scope = 0
     cap = MAX_OBS_PER_REQUEST + 1
     last_id = 0
     current_batch = []
+
+    # When a field filter is active, ask iNat for the field:NAME= filter
+    # server-side and request ofvs so the local check below has data to read.
+    obs_url = "https://api.inaturalist.org/v1/observations"
+    if obs_field:
+        obs_url = obs_url + "?" + field_present_query(obs_field)
 
     try:
         while len(current_batch) < cap:
             params = {
                 "user_login": username,
-                "d1": d1_str,
-                "d2": d2_str,
                 "taxon_id": taxon_id,
                 "per_page": 200,
                 "order": "asc",
                 "order_by": "id",
             }
+            # Map the date range to observed-date (d1/d2) or created-date
+            # (created_d1/created_d2) params depending on the chosen mode.
+            if date_mode == "created":
+                params["created_d1"] = d1_str
+                params["created_d2"] = d2_str
+            else:
+                params["d1"] = d1_str
+                params["d2"] = d2_str
             if last_id > 0:
                 params["id_above"] = last_id
 
             resp = inat_api_get(
-                "https://api.inaturalist.org/v1/observations", params=params, timeout=30
+                obs_url, params=params, timeout=30
             )
             data = resp.json()
+            total_in_scope = data.get("total_results", total_in_scope)
             results = data.get("results", [])
             if not results:
                 break
@@ -956,6 +1039,13 @@ def find_observations():
                 oid = r.get("id")
                 if oid:
                     last_id = oid
+
+                # Safety net: skip anything whose field is somehow blank. With
+                # server-side field:NAME= filtering this rarely triggers, but it
+                # guarantees the spec's "non-empty value" contract.
+                if obs_field and not ofv_is_populated(r, obs_field):
+                    continue
+
                 taxon = r.get("taxon") or {}
 
                 iconic = taxon.get("iconic_taxon_name", "")
@@ -981,6 +1071,9 @@ def find_observations():
                         "iconic_taxon_name": iconic,
                         "observed_on": r.get("observed_on"),
                         "color": color,
+                        # Carried through so the "Add Fields" modal can list this
+                        # observation's fields without a second lookup.
+                        "ofvs": r.get("ofvs", []),
                     }
                 )
         found = current_batch
@@ -1001,7 +1094,17 @@ def find_observations():
         return jsonify({"error": error_message}), 500
 
     found.reverse()
-    return jsonify({"count": len(found), "items": found}), 200
+    return (
+        jsonify(
+            {
+                "count": len(found),
+                "items": found,
+                "obs_field": obs_field,
+                "total_in_scope": total_in_scope,
+            }
+        ),
+        200,
+    )
 
 
 @app.route("/labels/help")
