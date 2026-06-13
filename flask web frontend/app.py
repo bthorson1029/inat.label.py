@@ -1025,7 +1025,11 @@ def find_observations():
                 obs_url, params=params, timeout=30
             )
             data = resp.json()
-            total_in_scope = data.get("total_results", total_in_scope)
+            # Without a field filter, the main query's total IS the scope total.
+            # With one, total_results counts only field-bearing observations, so
+            # the true scope count is fetched separately after the loop.
+            if not obs_field:
+                total_in_scope = data.get("total_results", total_in_scope)
             results = data.get("results", [])
             if not results:
                 break
@@ -1089,6 +1093,39 @@ def find_observations():
         except ValueError:
             pass
         return jsonify({"error": error_message}), 500
+
+    # With a field filter active, the loop above queried with field:NAME= in the
+    # URL, so its total_results only counted observations that carry the field.
+    # The "in scope" number is meant to be every observation matching the
+    # date/user/taxon filters, so fetch that count separately with a cheap
+    # per_page=1 request (we only need total_results, not the rows). Non-fatal:
+    # if it fails, fall back to the field-filtered count.
+    if obs_field:
+        try:
+            scope_params = {
+                "user_login": username,
+                "taxon_id": taxon_id,
+                "per_page": 1,
+                "order": "asc",
+                "order_by": "id",
+            }
+            if date_mode == "created":
+                scope_params["created_d1"] = d1_str
+                scope_params["created_d2"] = d2_str
+            else:
+                scope_params["d1"] = d1_str
+                scope_params["d2"] = d2_str
+            scope_resp = inat_api_get(
+                "https://api.inaturalist.org/v1/observations",
+                params=scope_params,
+                timeout=30,
+            )
+            total_in_scope = scope_resp.json().get("total_results", len(found))
+        except requests.RequestException as e:
+            api_error_logger.warning(
+                f"Scope count for user '{username}' failed: {str(e)}", exc_info=True
+            )
+            total_in_scope = len(found)
 
     found.reverse()
     return (
