@@ -124,7 +124,9 @@ def inat_api_get(url, **kwargs):
             raise
 
 
-app = Flask(__name__)
+# index.html lives next to this file rather than in a templates/ subfolder,
+# so point Jinja at the app directory.
+app = Flask(__name__, template_folder=os.path.dirname(os.path.abspath(__file__)))
 
 # Configure logging
 log_dir = os.path.join(app.root_path, "logs")
